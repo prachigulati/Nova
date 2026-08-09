@@ -1,0 +1,106 @@
+{
+  "performance": {
+    "U001": {
+      "user_id": "U001",
+      "name": "Prachi Gulati",
+      "cgpa": "9.15",
+      "sgpa": "9.20",
+      "totalCredits": 92,
+      "rank": "Dean's List",
+      "semesters": {
+        "Semester IV": [
+          { "code": "AIML-201", "subject": "Machine Learning Fundamentals", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "CSE-202", "subject": "Advanced Data Structures & Algorithms", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "MTH-203", "subject": "Probability & Random Processes", "credits": 3, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "ECE-204", "subject": "Computer Organization & Architecture", "credits": 3, "grade": "A", "points": 9, "status": "Passed" }
+        ],
+        "Semester III": [
+          { "code": "CSE-205", "subject": "Object Oriented Programming in C++", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "MTH-206", "subject": "Discrete Mathematics", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "CSE-207", "subject": "Database Management Systems", "credits": 3, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "HUM-208", "subject": "Cyber Security & Legal Aspects", "credits": 2, "grade": "A", "points": 9, "status": "Passed" }
+        ],
+        "Semester II": [
+          { "code": "PHY-102", "subject": "Engineering Physics", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "MTH-102", "subject": "Advanced Engineering Mathematics", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "CSE-102", "subject": "Object Oriented Programming in Java", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "ENG-102", "subject": "Professional Communication", "credits": 2, "grade": "B+", "points": 8, "status": "Passed" }
+        ],
+        "Semester I": [
+          { "code": "PHY-101", "subject": "Engineering Physics - I", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "MTH-101", "subject": "Engineering Mathematics - I", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "CSE-101", "subject": "Fundamentals of Computer Programming", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "ECE-101", "subject": "Basic Electronics Engineering", "credits": 3, "grade": "B+", "points": 8, "status": "Passed" }
+        ]
+      }
+    },
+    "U002": {
+      "user_id": "U002",
+      "name": "Rahul Sharma",
+      "cgpa": "8.40",
+      "sgpa": "8.50",
+      "totalCredits": 88,
+      "rank": "Scholar",
+      "semesters": {
+        "Semester IV": [
+          { "code": "AIML-201", "subject": "Machine Learning Fundamentals", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "CSE-202", "subject": "Advanced Data Structures & Algorithms", "credits": 4, "grade": "B+", "points": 8, "status": "Passed" },
+          { "code": "MTH-203", "subject": "Probability & Random Processes", "credits": 3, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "ECE-204", "subject": "Computer Organization & Architecture", "credits": 3, "grade": "A", "points": 9, "status": "Passed" }
+        ],
+        "Semester III": [
+          { "code": "CSE-205", "subject": "Object Oriented Programming in C++", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "MTH-206", "subject": "Discrete Mathematics", "credits": 4, "grade": "B+", "points": 8, "status": "Passed" },
+          { "code": "CSE-207", "subject": "Database Management Systems", "credits": 3, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "HUM-208", "subject": "Cyber Security & Legal Aspects", "credits": 2, "grade": "A", "points": 9, "status": "Passed" }
+        ],
+        "Semester II": [
+          { "code": "PHY-102", "subject": "Engineering Physics", "credits": 4, "grade": "B+", "points": 8, "status": "Passed" },
+          { "code": "MTH-102", "subject": "Advanced Engineering Mathematics", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "CSE-102", "subject": "Object Oriented Programming in Java", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "ENG-102", "subject": "Professional Communication", "credits": 2, "grade": "A", "points": 9, "status": "Passed" }
+        ],
+        "Semester I": [
+          { "code": "PHY-101", "subject": "Engineering Physics - I", "credits": 4, "grade": "B+", "points": 8, "status": "Passed" },
+          { "code": "MTH-101", "subject": "Engineering Mathematics - I", "credits": 4, "grade": "B+", "points": 8, "status": "Passed" },
+          { "code": "CSE-101", "subject": "Fundamentals of Computer Programming", "credits": 4, "grade": "A", "points": 9, "status": "Passed" },
+          { "code": "ECE-101", "subject": "Basic Electronics Engineering", "credits": 3, "grade": "A", "points": 9, "status": "Passed" }
+        ]
+      }
+    },
+    "U003": {
+      "user_id": "U003",
+      "name": "Ananya Verma",
+      "cgpa": "9.45",
+      "sgpa": "9.60",
+      "totalCredits": 92,
+      "rank": "Gold Medalist",
+      "semesters": {
+        "Semester IV": [
+          { "code": "AIML-201", "subject": "Machine Learning Fundamentals", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "CSE-202", "subject": "Advanced Data Structures & Algorithms", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "MTH-203", "subject": "Probability & Random Processes", "credits": 3, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "ECE-204", "subject": "Computer Organization & Architecture", "credits": 3, "grade": "A", "points": 9, "status": "Passed" }
+        ],
+        "Semester III": [
+          { "code": "CSE-205", "subject": "Object Oriented Programming in C++", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "MTH-206", "subject": "Discrete Mathematics", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "CSE-207", "subject": "Database Management Systems", "credits": 3, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "HUM-208", "subject": "Cyber Security & Legal Aspects", "credits": 2, "grade": "A", "points": 9, "status": "Passed" }
+        ],
+        "Semester II": [
+          { "code": "PHY-102", "subject": "Engineering Physics", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "MTH-102", "subject": "Advanced Engineering Mathematics", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "CSE-102", "subject": "Object Oriented Programming in Java", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "ENG-102", "subject": "Professional Communication", "credits": 2, "grade": "A", "points": 9, "status": "Passed" }
+        ],
+        "Semester I": [
+          { "code": "PHY-101", "subject": "Engineering Physics - I", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "MTH-101", "subject": "Engineering Mathematics - I", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "CSE-101", "subject": "Fundamentals of Computer Programming", "credits": 4, "grade": "A+", "points": 10, "status": "Passed" },
+          { "code": "ECE-101", "subject": "Basic Electronics Engineering", "credits": 3, "grade": "A", "points": 9, "status": "Passed" }
+        ]
+      }
+    }
+  }
+}

@@ -363,3 +363,37 @@ def get_user_courses(user_id: str):
             
     # Fallback default courses if user entry doesn't exist
     return {"user_id": user_id, "courses": []}
+
+
+
+    # Load performance database from data/performance.json
+def load_performance_db():
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    path = os.path.join(base_dir, "..", "data", "performance.json")
+    if not os.path.exists(path):
+        path = os.path.join(base_dir, "data", "performance.json")
+    if not os.path.exists(path):
+        return {}
+    with open(path, "r", encoding="utf-8") as f:
+        content = f.read().strip()
+    return json.loads(content) if content else {}
+
+@app.get("/api/performance/{user_id}")
+def get_user_performance(user_id: str):
+    db = load_performance_db()
+    performance_map = db.get("performance", db)
+    
+    if isinstance(performance_map, dict):
+        user_data = performance_map.get(user_id)
+        if user_data:
+            return user_data
+            
+    # Fallback default empty structure
+    return {
+        "user_id": user_id,
+        "cgpa": "0.0",
+        "sgpa": "0.0",
+        "totalCredits": 0,
+        "rank": "N/A",
+        "semesters": {}
+    }
