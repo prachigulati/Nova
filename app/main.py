@@ -453,3 +453,45 @@ def upload_document(file: UploadFile = File(...)):
         shutil.copyfileobj(file.file, buffer)
         
     return {"status": "success", "filename": file.filename, "path": file_path}
+
+
+
+from fastapi.staticfiles import StaticFiles
+import os
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from starlette.staticfiles import StaticFiles
+# Create the directory if it doesn't exist yet, preventing the startup crash
+os.makedirs("teacher_uploads", exist_ok=True)
+
+# Now mount it safely
+app.mount("/teacher_uploads", StaticFiles(directory="teacher_uploads"), name="teacher_uploads")
+@app.post("/api/upload-teacher-document")
+async def upload_teacher_document(
+    file: UploadFile = File(...),
+    user_role: str = Form(...),
+    user_name: str = Form(...)
+):
+    # Make check case-insensitive and allow variations like 'faculty' or 'teacher'
+    normalized_role = user_role.lower().strip()
+    if normalized_role not in ["teacher", "faculty", "instructor"]:
+        raise HTTPException(
+            status_code=403, 
+            detail=f"Access Denied: Role '{user_role}' is not authorized to upload documents."
+        )
+        
+    if not file.filename.endswith('.pdf'):
+        raise HTTPException(status_code=400, detail="Only PDF documents are allowed.")
+        
+    os.makedirs("teacher_uploads", exist_ok=True)
+    file_path = os.path.join("teacher_uploads", file.filename)
+    
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    return {"message": f"Document '{file.filename}' successfully uploaded by {user_name}.", "filename": file.filename}
+@app.get("/api/timeline-documents")
+async def get_timeline_documents():
+    """Retrieve documents exclusively from the teacher_uploads directory."""
+    os.makedirs("teacher_uploads", exist_ok=True)
+    files = [{"filename": f, "url": f"/teacher_uploads/{f}"} for f in os.listdir("teacher_uploads") if f.lower().endswith('.pdf')]
+    return {"documents": files}

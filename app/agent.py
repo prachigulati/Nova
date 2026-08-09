@@ -13,7 +13,7 @@ from langgraph.graph.message import add_messages
 from langgraph.prebuilt import ToolNode
 from langgraph.checkpoint.memory import MemorySaver
 
-from app.tools import query_policy_guidelines, query_exam_seating, submit_leave_request, get_user_leaves, check_leave_status, get_class_schedule, get_subject_attendance, get_user_courses, get_academic_performance
+from app.tools import query_policy_guidelines, query_exam_seating, submit_leave_request, get_user_leaves, check_leave_status, get_class_schedule, get_subject_attendance, get_user_courses, get_academic_performance, search_college_timeline_docs
 
 class AgentState(TypedDict):
     messages: Annotated[list[BaseMessage], add_messages]
@@ -31,7 +31,8 @@ TOOLS = [
     get_subject_attendance, 
     get_class_schedule,
     get_user_courses,
-    get_academic_performance
+    get_academic_performance,
+    search_college_timeline_docs
 ]
 
 model = AzureChatOpenAI(
@@ -70,12 +71,14 @@ def call_model(state: AgentState):
         f"4. Leave Queries: When users ask to list their leaves, use `get_user_leaves` with their user ID ({user_id}). When users ask about the status of a specific leave, use `check_leave_status` with their user ID ({user_id}).\n"
         f"5. ATTENDANCE & TIMETABLE TOOLS:\n"
         f"   - Minimum attendance criteria is 75.0%.\n"
-        f"   - When users ask about their attendance or percentage for a subject, use `get_subject_attendance` with user ID ({user_id}).\n"
-        f"   - When users ask on which dates they were absent for a subject, use `get_subject_attendance`.\n"
-        f"   - When users ask about lecture halls, timings, or schedules, use `get_class_schedule`.\n"
+        f"   - ATTENDANCE QUERIES: Whenever the user asks about attendance, percentage, classes attended, or absences for a subject, you MUST call `get_subject_attendance` with user ID ({user_id}).\n"
+        f"   - OVERALL ATTENDANCE CALCULATION: When the user asks for 'overall attendance', call `get_subject_attendance`, take all the subject percentages returned by the tool, add them together, and divide by the total number of subjects to give a clean average percentage. Do not list individual subjects unless asked, and do not say you cannot calculate it.\n"
+        f"   - SCHEDULE QUERIES: When users ask about lecture halls, timings, or schedules, use `get_class_schedule`.\n"
         f"6. COURSES & PERFORMANCE TOOLS:\n"
         f"   - When users ask about course progress, instructors, due dates, or lesson counts, use `get_user_courses` with user ID ({user_id}).\n"
         f"   - When users ask about CGPA, SGPA, rank, total credits, or semester grades, use `get_academic_performance` with user ID ({user_id})."
+        f"7. TIMELINE & TEACHER DOCUMENTS:\n"
+        f"   - Whenever users ask about announcements, job bootcamps, circulars, exam seating, or uploaded files/documents, you MUST call `search_college_timeline_docs`."
     )
     
     prompt = ChatPromptTemplate.from_messages([

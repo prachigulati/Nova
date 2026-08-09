@@ -497,3 +497,74 @@ def get_academic_performance(user_id: str, semester_query: str = "") -> str:
         return json.dumps(result, indent=2)
         
     return json.dumps(user_perf, indent=2)
+
+
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+import sys
+from mcp import ClientSession, StdioServerParameters
+from mcp.client.stdio import stdio_client
+import asyncio
+from langchain_core.tools import tool
+
+import os
+import pypdf
+from langchain_core.tools import tool
+
+@tool
+def search_college_timeline_docs(query: str) -> str:
+    """Search teacher-uploaded exam schedules, seating charts, and campus event notices from the teacher_uploads folder."""
+    print(f"\n[DEBUG TOOL] Direct search_college_timeline_docs called with query: '{query}'")
+    
+    # Get absolute path to teacher_uploads in project root
+    root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    upload_dir = os.path.join(root_dir, "teacher_uploads")
+    
+    print(f"[DEBUG TOOL] Scanning directory: {upload_dir}")
+    
+    if not os.path.exists(upload_dir):
+        print(f"[DEBUG TOOL] Directory not found: {upload_dir}")
+        return f"Teacher uploads directory not found at: {upload_dir}"
+        
+    files = os.listdir(upload_dir)
+    print(f"[DEBUG TOOL] Files found: {files}")
+    
+    results = []
+    query_lower = query.lower()
+    query_words = [w for w in query_lower.split() if len(w) > 2]
+    
+    for filename in files:
+        if filename.endswith(".pdf"):
+            path = os.path.join(upload_dir, filename)
+            print(f"[DEBUG TOOL] Reading PDF: {filename}")
+            try:
+                reader = pypdf.PdfReader(path)
+                text = ""
+                for page in reader.pages:
+                    text += page.extract_text() or ""
+                
+                combined_content = (filename + " " + text).lower()
+                
+                # Check for matches
+                is_match = query_lower in combined_content
+                if not is_match and query_words:
+                    if any(word in combined_content for word in query_words):
+                        is_match = True
+                
+                # Broad intent fallback
+                if not is_match and any(generic in query_lower for generic in ["document", "timeline", "bootcamp", "jd", "notice", "circular", "servicenow"]):
+                    is_match = True
+
+                if is_match:
+                    print(f"[DEBUG TOOL] Match found in {filename}!")
+                    results.append(f"--- Document: {filename} ---\n{text}\n")
+            except Exception as e:
+                print(f"[DEBUG TOOL ERROR] Error reading {filename}: {str(e)}")
+                continue
+                
+    if not results:
+        print(f"[DEBUG TOOL] No matching documents found for query: {query}")
+        return f"No matching documents found for query: {query}"
+        
+    print(f"[DEBUG TOOL] Successfully returning {len(results)} document(s).")
+    return "\n".join(results)
