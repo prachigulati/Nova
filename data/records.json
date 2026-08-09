@@ -1,116 +1,6 @@
 {
   "leaves": [
     {
-      "leave_id": "L001",
-      "user_id": "U001",
-      "name": "Alex Rivera",
-      "type": "medical",
-      "start_date": "2026-07-20",
-      "end_date": "2026-07-22",
-      "reason": "Fever and bed rest",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L002",
-      "user_id": "U001",
-      "name": "Alex Rivera",
-      "type": "medical",
-      "start_date": "2026-07-04",
-      "end_date": "2026-07-09",
-      "reason": "fever",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L003",
-      "user_id": "u001",
-      "name": "alexa rivera",
-      "type": "duty",
-      "start_date": "2024-06-05",
-      "end_date": "2024-07-08",
-      "reason": "attending a summer school program",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L004",
-      "user_id": "u001",
-      "name": "alex rivera",
-      "type": "duty leave",
-      "start_date": "2023-07-05",
-      "end_date": "2023-07-10",
-      "reason": "attending a summer school program at Telkom University",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L005",
-      "user_id": "u001",
-      "name": "Alex Rivera",
-      "type": "medical leave",
-      "start_date": "2023-06-04",
-      "end_date": "2023-06-07",
-      "reason": "suffering from fever",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L006",
-      "user_id": "001",
-      "name": "Ava",
-      "type": "Duty Leave",
-      "start_date": "2026-04-03",
-      "end_date": "2026-04-10",
-      "reason": "Attending a tech talk",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L007",
-      "user_id": "001",
-      "name": "Ava",
-      "type": "Medical Leave",
-      "start_date": "2026-07-15",
-      "end_date": "2026-07-19",
-      "reason": "Fever",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L008",
-      "user_id": "002",
-      "name": "Prachi",
-      "type": "medical",
-      "start_date": "2023-07-10",
-      "end_date": "2023-07-15",
-      "reason": "suffering from fever",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L009",
-      "user_id": "007",
-      "name": "Prachi",
-      "type": "duty",
-      "start_date": "2023-06-05",
-      "end_date": "2023-07-12",
-      "reason": "gone for a Summer School program",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L0010",
-      "user_id": "U001",
-      "name": "Priya Sharma",
-      "type": "medical",
-      "start_date": "2023-08-01",
-      "end_date": "2023-08-04",
-      "reason": "Fever",
-      "status": "pending"
-    },
-    {
-      "leave_id": "L0011",
-      "user_id": "2456",
-      "name": "shreya",
-      "type": "duty",
-      "start_date": "2024-06-04",
-      "end_date": "2024-06-08",
-      "reason": "attending an AI bootcamp",
-      "status": "pending"
-    },
-    {
       "leave_id": "L0012",
       "user_id": "U001",
       "name": "Prachi Gulati",
@@ -119,6 +9,160 @@
       "end_date": "2023-08-07",
       "reason": "suffering from cold",
       "status": "pending"
+    },
+    {
+      "leave_id": "L0013",
+      "user_id": "U002",
+      "name": "Rahul Sharma",
+      "type": "medical",
+      "start_date": "2023-08-04",
+      "end_date": "2023-08-08",
+      "reason": "suffering from fever",
+      "status": "pending"
+    },
+    {
+      "leave_id": "L0014",
+      "user_id": "U002",
+      "name": "Rahul Sharma",
+      "type": "Medical Leave",
+      "start_date": "2023-07-02",
+      "end_date": "2023-07-04",
+      "reason": "Attending a summer school",
+      "status": "pending",
+      "document": "document.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L0015",
+      "user_id": "U002",
+      "name": "Rahul Sharma",
+      "type": "Medical Leave",
+      "start_date": "2023-08-03",
+      "end_date": "2023-08-07",
+      "reason": "Suffering from fever",
+      "status": "pending",
+      "document": "U002_Medical.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L0016",
+      "user_id": "U002",
+      "name": "Rahul Sharma",
+      "type": "Medical",
+      "start_date": "2023-07-29",
+      "end_date": "2023-08-05",
+      "reason": "suffering from fever",
+      "status": "pending",
+      "document": "U002_Medical.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L006",
+      "user_id": "U001",
+      "name": "Prachi Gulati",
+      "type": "Duty Leave",
+      "start_date": "2023-08-03",
+      "end_date": "2023-08-07",
+      "reason": "Attending Discover ServiceNow event",
+      "status": "pending",
+      "document": "document.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L007",
+      "user_id": "U001",
+      "name": "Prachi Gulati",
+      "type": "Medical",
+      "start_date": "2026-08-02",
+      "end_date": "2026-08-07",
+      "reason": "suffering from severe headache",
+      "status": "pending",
+      "document": "U002_Medical.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L008",
+      "user_id": "U001",
+      "name": "Prachi Gulati",
+      "type": "Medical",
+      "start_date": "2026-07-05",
+      "end_date": "2026-07-10",
+      "reason": "Medical leave",
+      "status": "pending",
+      "document": "U002_Medical.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L009",
+      "user_id": "U001",
+      "name": "Prachi Gulati",
+      "type": "medical",
+      "start_date": "2026-07-03",
+      "end_date": "2026-07-07",
+      "reason": "I was having a backache",
+      "status": "pending",
+      "document": "U002_Medical.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L0010",
+      "user_id": "U001",
+      "name": "Prachi Gulati",
+      "type": "duty",
+      "start_date": "2026-08-05",
+      "end_date": "2026-08-08",
+      "reason": "Attending a bootcamp",
+      "status": "pending",
+      "document": "document.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L0011",
+      "user_id": "U002",
+      "name": "Rahul Sharma",
+      "type": "Duty Leave",
+      "start_date": "2026-08-03",
+      "end_date": "2026-08-07",
+      "reason": "Attending an AI summit",
+      "status": "pending",
+      "document": "document.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L0012",
+      "user_id": "U002",
+      "name": "Rahul Sharma",
+      "type": "Medical Leave",
+      "start_date": "2026-08-04",
+      "end_date": "2026-08-08",
+      "reason": "Medical leave",
+      "status": "pending",
+      "document": "U002_Medical.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L0013",
+      "user_id": "U002",
+      "name": "Rahul Sharma",
+      "type": "Medical",
+      "start_date": "2026-08-07",
+      "end_date": "2026-08-08",
+      "reason": "Stomachache",
+      "status": "pending",
+      "document": "document.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L0014",
+      "user_id": "U001",
+      "name": "Prachi Gulati",
+      "type": "Medical",
+      "start_date": "2026-08-05",
+      "end_date": "2026-08-08",
+      "reason": "Suffering from high fever",
+      "status": "pending",
+      "document": "medimage2.pdf",
+      "credited": false
     }
   ],
   "exam_seating": {

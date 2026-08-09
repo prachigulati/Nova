@@ -583,7 +583,6 @@
 // }\
 
 
-
 import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
@@ -597,7 +596,7 @@ import ChatView from './components/ChatView';
 import ProfileView from './components/ProfileView';
 import TimelineView from './components/TimelineView';
 import AuthPage from './components/AuthPage';
-import { initialLeaveRequests } from './data/mockData';
+import LeavesView from './components/LeavesView';
 
 export default function App() {
   // Authentication & User Profile State
@@ -622,7 +621,6 @@ export default function App() {
 
   // Leave Modal & Data State
   const [isLeaveModalOpen, setIsLeaveModalOpen] = useState(false);
-  const [leaveRequests, setLeaveRequests] = useState(initialLeaveRequests);
 
   const [leaveForm, setLeaveForm] = useState({
     type: 'Medical Leave',
@@ -632,28 +630,41 @@ export default function App() {
     fileName: ''
   });
 
-  const handleApplyLeave = (e) => {
+  const handleApplyLeave = async (e) => {
     e.preventDefault();
     if (!leaveForm.reason || !leaveForm.startDate || !leaveForm.endDate) {
       alert('Please fill out all required fields.');
       return;
     }
 
-    const newRequest = {
-      id: Date.now(),
-      type: leaveForm.type,
-      subject: leaveForm.reason,
-      dateRange: `${leaveForm.startDate} to ${leaveForm.endDate}`,
-      totalDays: 1,
-      status: 'Pending',
-      credited: false,
-      document: leaveForm.fileName || 'uploaded_doc.pdf'
-    };
+    try {
+      const userId = currentUser?.user_id || 'U001';
+      const response = await fetch('http://127.0.0.1:8000/api/leaves', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-user_id': userId
+        },
+        body: JSON.stringify({
+          type: leaveForm.type,
+          subject: leaveForm.reason,
+          dateRange: `${leaveForm.startDate} to ${leaveForm.endDate}`,
+          totalDays: 2,
+          document: leaveForm.fileName || 'document.pdf'
+        })
+      });
 
-    setLeaveRequests([newRequest, ...leaveRequests]);
-    setIsLeaveModalOpen(false);
-    setLeaveForm({ type: 'Medical Leave', reason: '', startDate: '', endDate: '', fileName: '' });
-    alert('Leave application submitted successfully for HOD approval!');
+      if (response.ok) {
+        setIsLeaveModalOpen(false);
+        setLeaveForm({ type: 'Medical Leave', reason: '', startDate: '', endDate: '', fileName: '' });
+        alert('Leave application submitted successfully for approval!');
+      } else {
+        alert('Failed to submit leave request.');
+      }
+    } catch (err) {
+      console.error('Error submitting leave:', err);
+      alert('Network error while submitting leave request.');
+    }
   };
 
   // Real-Time Voice Conversational AI States
@@ -772,7 +783,7 @@ export default function App() {
 
     try {
       const userId = currentUser?.user_id || 'U001';
-      const res = await fetch('/api/chat', {
+      const res = await fetch('http://127.0.0.1:8000/api/chat', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -788,13 +799,11 @@ export default function App() {
       } else {
         const lower = messageText.toLowerCase();
         if (lower.includes('attendance') || lower.includes('safe')) {
-          botReply = "Your attendance is sitting at 87% overall, which is totally safe! Just keep an eye on Human-Computer Interaction since it's around 71%.";
+          botReply = "Your attendance is sitting at 87% overall, which is totally safe! Just keep an eye on your subjects since it's tracking dynamically.";
         } else if (lower.includes('schedule') || lower.includes('classes') || lower.includes('today')) {
-          botReply = "Today you have Advanced Machine Learning in the morning, followed by Distributed Systems Architecture and Cloud Native Lab!";
+          botReply = "Today you have core engineering modules in the morning, followed by lab sessions!";
         } else if (lower.includes('leave') || lower.includes('duty')) {
-          botReply = "You have 3 duty leaves approved so far, including your HackIndia Hackathon participation. Need to apply for another one?";
-        } else if (lower.includes('pep') || lower.includes('exam') || lower.includes('stress')) {
-          botReply = "You've got this! Take a deep breath—you're fully prepared!";
+          botReply = "You can view and submit your duty or medical leaves right from the Leaves tab on your sidebar.";
         } else {
           botReply = `I hear you loud and clear! You mentioned: "${messageText}". How else can I help you navigate your semester today?`;
         }
@@ -874,7 +883,8 @@ export default function App() {
         {activeNav === 'courses' && <CoursesView activeTab={activeTab} setActiveTab={setActiveTab} />}
         {activeNav === 'performance' && <PerformanceView selectedSemester={selectedSemester} setSelectedSemester={setSelectedSemester} />}
         {activeNav === 'attendance' && <AttendanceView />}
-        {activeNav === 'schedule' && <ScheduleView selectedDay={selectedDay} setSelectedDay={setSelectedDay} setIsLeaveModalOpen={setIsLeaveModalOpen} leaveRequests={leaveRequests} />}
+        {activeNav === 'schedule' && <ScheduleView selectedDay={selectedDay} setSelectedDay={setSelectedDay} setIsLeaveModalOpen={setIsLeaveModalOpen} />}
+        {activeNav === 'leaves' && <LeavesView setIsLeaveModalOpen={setIsLeaveModalOpen} />}
         {activeNav === 'chats' && <ChatView 
           chatMessages={chatMessages} 
           chatInput={chatInput} 

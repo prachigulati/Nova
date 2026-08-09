@@ -41,12 +41,21 @@ class RegisterRequest(BaseModel):
 class ChatRequest(BaseModel):
     message: str
 
+# class LeaveRequestPayload(BaseModel):
+#     type: str
+#     subject: str
+#     dateRange: str
+#     totalDays: int
+#     document: Optional[str] = "document.pdf"
+
+
 class LeaveRequestPayload(BaseModel):
     type: str
     subject: str
     dateRange: str
     totalDays: int
-    document: Optional[str] = "document.pdf"
+    document: Optional[str] = "prescription.pdf"
+
 
 # Load users safely from data/users.json
 def load_users():
@@ -143,28 +152,6 @@ def register(data: RegisterRequest):
 @app.get("/api/users")
 def get_users():
     return load_users()
-
-@app.get("/api/leaves")
-def get_leaves():
-    records = load_records()
-    return records.get("leave_requests", [])
-
-@app.post("/api/leaves")
-def create_leave(req: LeaveRequestPayload):
-    records = load_records()
-    new_req = {
-        "id": len(records.get("leave_requests", [])) + 1,
-        "type": req.type,
-        "subject": req.subject,
-        "dateRange": req.dateRange,
-        "totalDays": req.totalDays,
-        "status": "Pending",
-        "credited": False,
-        "document": req.document
-    }
-    records.setdefault("leave_requests", []).append(new_req)
-    save_records(records)
-    return {"status": "success", "data": new_req}
 
 @app.post("/api/chat")
 def chat_endpoint(req: ChatRequest, x_user_id: str = Header(default="U001")):
@@ -397,3 +384,72 @@ def get_user_performance(user_id: str):
         "rank": "N/A",
         "semesters": {}
     }
+# @app.get("/api/leaves")
+# def get_leaves(user_id: Optional[str] = None):
+#     records = load_records()
+#     leave_list = records.get("leaves", [])
+#     if user_id:
+#         filtered = [l for l in leave_list if str(l.get("user_id", "")).strip().lower() == str(user_id).strip().lower()]
+#         return filtered if filtered else leave_list
+#     return leave_list
+
+@app.get("/api/leaves")
+def get_leaves(user_id: Optional[str] = None):
+    records = load_records()
+    leave_list = records.get("leaves", [])
+    if user_id:
+        filtered = [l for l in leave_list if str(l.get("user_id", "")).strip().lower() == str(user_id).strip().lower()]
+        return filtered  # Returns [] if U003 has no leaves, instead of falling back to all records
+    return leave_list
+
+@app.post("/api/leaves")
+def create_leave(req: LeaveRequestPayload, x_user_id: str = Header(default="U001")):
+    records = load_records()
+    leaves = records.get("leaves", [])
+    
+    # Simple validation check for random/invalid documents if totalDays > 3
+    doc_name = req.document.lower()
+    if req.totalDays > 3 and ("random" in doc_name or "test" in doc_name or "fake" in doc_name):
+        raise HTTPException(status_code=400, detail="Please add a valid prescription document.")
+
+    new_id = f"L00{len(leaves) + 1}"
+    new_req = {
+        "leave_id": new_id,
+        "user_id": x_user_id,
+        "name": "Student",
+        "type": req.type,
+        "start_date": req.dateRange.split(" to ")[0] if " to " in req.dateRange else req.dateRange,
+        "end_date": req.dateRange.split(" to ")[1] if " to " in req.dateRange else req.dateRange,
+        "reason": req.subject,
+        "status": "pending",
+        "credited": False,
+        "document": req.document
+    }
+    
+    leaves.append(new_req)
+    records["leaves"] = leaves
+    save_records(records)
+    return {"status": "success", "data": new_req}
+
+
+import shutil
+from fastapi import UploadFile, File
+
+
+from fastapi.staticfiles import StaticFiles
+
+# Mount uploads folder so PDFs can be viewed via URL (e.g. http://127.0.0.1:8000/uploads/filename.pdf)
+os.makedirs("uploads", exist_ok=True)
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+
+@app.post("/api/upload")
+def upload_document(file: UploadFile = File(...)):
+    uploads_dir = "uploads"
+    os.makedirs(uploads_dir, exist_ok=True)
+    
+    file_path = os.path.join(uploads_dir, file.filename)
+    with open(file_path, "wb") as buffer:
+        shutil.copyfileobj(file.file, buffer)
+        
+    return {"status": "success", "filename": file.filename, "path": file_path}
