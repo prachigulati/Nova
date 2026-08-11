@@ -79,6 +79,10 @@ def call_model(state: AgentState):
         f"   - When users ask about CGPA, SGPA, rank, total credits, or semester grades, use `get_academic_performance` with user ID ({user_id})."
         f"7. TIMELINE & TEACHER DOCUMENTS:\n"
         f"   - Whenever users ask about announcements, job bootcamps, circulars, exam seating, or uploaded files/documents, you MUST call `search_college_timeline_docs`."
+        f"8. STRICT DATA PRIVACY & USER ISOLATION:\n"
+        f"   - The logged-in user is strictly {user_id} ({user_name}).\n"
+        f"   - You MUST ONLY fetch data for the logged-in user ({user_id}).\n"
+        f"   - If the user asks for another student's data (or another ID's data), you MUST refuse and state that you can only access their own academic and personal records."
     )
     
     prompt = ChatPromptTemplate.from_messages([
@@ -96,6 +100,35 @@ def should_continue(state: AgentState):
     if isinstance(last_message, AIMessage) and last_message.tool_calls:
         return "tools"
     return END
+
+from app.guardrails import input_guardrail, output_guardrail
+
+def ask(text: str, user_id: str = "U001", user_name: str = "Prachi", user_role: str = "student") -> tuple[str, list]:
+    # 1. Run Input Guardrail Check
+    is_safe, reason = input_guardrail(text)
+    if not is_safe:
+        blocked_msg = "I'm sorry, I can't assist with that request as it violates campus safety guidelines."
+        return blocked_msg, []
+
+    initial_state = {
+        "messages": [HumanMessage(content=text)],
+        "user_id": user_id,
+        "user_name": user_name,
+        "user_role": user_role
+    }
+    config = {"configurable": {"thread_id": f"session_{user_id}"}}
+    result = app_graph.invoke(initial_state, config=config)
+    
+    final_content = result["messages"][-1].content
+    
+    # 2. Run Output Guardrail Check
+    out_safe, out_reason = output_guardrail(final_content)
+    if not out_safe:
+        filtered_msg = "I'm sorry, I generated a response that could not be verified against safety guidelines. Please try asking again."
+        return filtered_msg, result["messages"]
+
+    return final_content, result["messages"]
+
 
 workflow = StateGraph(AgentState)
 workflow.add_node("agent", call_model)
