@@ -1,16 +1,6 @@
 {
   "leaves": [
     {
-      "leave_id": "L0012",
-      "user_id": "U001",
-      "name": "Prachi Gulati",
-      "type": "medical",
-      "start_date": "2023-08-01",
-      "end_date": "2023-08-07",
-      "reason": "suffering from cold",
-      "status": "pending"
-    },
-    {
       "leave_id": "L0013",
       "user_id": "U002",
       "name": "Rahul Sharma",
@@ -66,42 +56,6 @@
       "reason": "Attending Discover ServiceNow event",
       "status": "pending",
       "document": "document.pdf",
-      "credited": false
-    },
-    {
-      "leave_id": "L007",
-      "user_id": "U001",
-      "name": "Prachi Gulati",
-      "type": "Medical",
-      "start_date": "2026-08-02",
-      "end_date": "2026-08-07",
-      "reason": "suffering from severe headache",
-      "status": "pending",
-      "document": "U002_Medical.pdf",
-      "credited": false
-    },
-    {
-      "leave_id": "L008",
-      "user_id": "U001",
-      "name": "Prachi Gulati",
-      "type": "Medical",
-      "start_date": "2026-07-05",
-      "end_date": "2026-07-10",
-      "reason": "Medical leave",
-      "status": "pending",
-      "document": "U002_Medical.pdf",
-      "credited": false
-    },
-    {
-      "leave_id": "L009",
-      "user_id": "U001",
-      "name": "Prachi Gulati",
-      "type": "medical",
-      "start_date": "2026-07-03",
-      "end_date": "2026-07-07",
-      "reason": "I was having a backache",
-      "status": "pending",
-      "document": "U002_Medical.pdf",
       "credited": false
     },
     {
@@ -162,6 +116,18 @@
       "reason": "Suffering from high fever",
       "status": "pending",
       "document": "medimage2.pdf",
+      "credited": false
+    },
+    {
+      "leave_id": "L0011",
+      "user_id": "U001",
+      "name": "Prachi Gulati",
+      "type": "Medical",
+      "start_date": "2026-08-03",
+      "end_date": "2026-08-08",
+      "reason": "Suffering from an allergy",
+      "status": "pending",
+      "document": "medical_document.pdf",
       "credited": false
     }
   ],
